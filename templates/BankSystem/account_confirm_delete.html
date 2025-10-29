@@ -1,0 +1,11 @@
+{% extends "BankSystem/_base.html" %}
+{% block title %}Delete Account{% endblock %}
+{% block content %}
+<h3>Delete Account</h3>
+<p class="text-muted">Are you sure you want to delete account <strong>{{ account.account_number }}</strong> ({{ account.holder_name }})?</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn btn-danger">Yes, delete</button>
+  <a class="btn btn-outline-secondary" href="{% url 'banksystem:account_list' %}">Cancel</a>
+</form>
+{% endblock %}

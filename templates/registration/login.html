@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to right, #74ebd5, #ACB6E5);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .login-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+        background-color: #4e73df;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #2e59d9;
+    }
+
+    a.text-link {
+        color: #4e73df;
+        text-decoration: none;
+    }
+
+    a.text-link:hover {
+        color: #224abe;
+        text-decoration: underline;
+    }
+
+    .form-label {
+        font-weight: 500;
+    }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-md-6 col-lg-5 login-card">
+        <h2 class="text-center mb-4">Login to Your Account</h2>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+
+        <div class="text-center">
+            <a href="{% url 'password_reset' %}" class="text-link">Forgot Password?</a>
+        </div>
+
+        <hr>
+
+        <p class="text-center">New User? <a href="{% url 'register' %}" class="text-link">Register Here</a></p>
+    </div>
+</div>
+{% endblock %}

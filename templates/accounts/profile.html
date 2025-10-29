@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to right, #fdfbfb, #ebedee);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .profile-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 500px;
+        margin: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .profile-card h2 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .profile-card p {
+        font-size: 1.1rem;
+    }
+
+    .profile-card .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn-custom {
+        background-color: #4e73df;
+        color: white;
+        border: none;
+    }
+
+    .btn-custom:hover {
+        background-color: #2e59d9;
+    }
+
+    .btn-logout {
+        background-color: #e74a3b;
+    }
+
+    .btn-logout:hover {
+        background-color: #c0392b;
+    }
+</style>
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="profile-card text-center">
+        <h2>Welcome, {{ user.username }} 👋</h2>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <hr>
+
+        <div class="d-grid gap-2 mt-4">
+            <a href="{% url 'edit_profile' %}" class="btn btn-custom">Edit Profile</a>
+            <a href="{% url 'password_change' %}" class="btn btn-custom">Change Password</a>
+            <a href="{% url 'logout' %}" class="btn btn-logout">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item">Logout</button>
+                        </form></a>
+        </div>
+    </div>
+</div>
+{% endblock %}
